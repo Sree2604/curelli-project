@@ -3,11 +3,14 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const User = require('./models/user.js');
+const productRoutes = require('./routes/productRoutes.js')
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+app.use('/products', productRoutes);
 
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_DB}.dooirmo.mongodb.net/?retryWrites=true&w=majority`, {
 })
@@ -59,7 +62,7 @@ app.get('/:mail', async (req, res) => {
   try {
     const { mail } = req.params;
     const user = await User.findOne({ mail });
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -84,3 +87,4 @@ app.get('/users', async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 });
+

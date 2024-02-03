@@ -18,6 +18,16 @@ const userSchema = new Schema({
         type : String,
         required : true
     },
+    cart : {
+        type : Object
+    },
+    wishlist : {
+        type : Object
+    },
+    orders : {
+        
+    }
+
     
 })
 
